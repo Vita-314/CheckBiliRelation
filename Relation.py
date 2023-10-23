@@ -47,13 +47,14 @@ class Relation:
         else :
             for id in array:
                 params = {
-                    "fids" :id,
+                    "fid" :id,
                     "act":2,
                     "re_src":11,
                     "csrf":self.CONFIG['Cookies']['bili_jct']
                 }
-                data = self.sess.post(url="https://api.bilibili.com/x/relation/batch/modify",data=params).json()
-                if data['code'] !=0 : self.log('****取关操作失败'+data)
+                self.sess.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+                data = self.sess.post(url="https://api.bilibili.com/x/relation/modify",data=params).json()
+                if data['code'] !=0 : self.log('****取关操作失败'+str(data))
                 
 
 
